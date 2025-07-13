@@ -42,7 +42,7 @@ export default function ContactForm() {
       
       // Reset success status after 3 seconds
       setTimeout(() => setStatus('idle'), 3000);
-    } catch (error) {
+    } catch {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 3000);
     }

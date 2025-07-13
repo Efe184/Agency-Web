@@ -3,18 +3,11 @@
 import { motion } from 'framer-motion';
 import { 
   TrendingUp, 
-  Users, 
   Award, 
   ArrowRight,
   Target,
-  BarChart3,
-  ShoppingCart,
-  Calendar,
-  Globe,
   Star,
-  CheckCircle,
-  Eye,
-  MousePointer
+  CheckCircle
 } from 'lucide-react';
 
 export default function StoriesPage() {
@@ -36,7 +29,7 @@ export default function StoriesPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -338,7 +331,7 @@ export default function StoriesPage() {
                 <h3 className="text-2xl font-bold text-white mb-4">Meydan Okuma</h3>
                 <p className="text-gray-400">
                   TechnoMart, geleneksel satış kanallarına bağımlı bir e-ticaret sitesiydi. 
-                  Online görünürlüğü düşük, dönüşüm oranları %1'in altında ve rekabette gerideydi.
+                  Online görünürlüğü düşük, dönüşüm oranları %1&apos;in altında ve rekabette gerideydi.
                 </p>
               </div>
 
@@ -398,7 +391,7 @@ export default function StoriesPage() {
               <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                 <h3 className="text-2xl font-bold text-white mb-4">Müşteri Yorumu</h3>
                 <div className="relative">
-                  <div className="text-6xl text-indigo-400/20 font-bold absolute -top-2 -left-2">"</div>
+                  <div className="text-6xl text-indigo-400/20 font-bold absolute -top-2 -left-2">&quot;</div>
                   <p className="text-gray-400 italic pl-8">
                     OZANTARIK ekibi sayesinde işimizi tamamen dönüştürdük. 
                     Sadece 12 ayda 500% büyüme yakaladık ve sektörün lideri olduk.

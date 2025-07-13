@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
 import { Linkedin, Twitter, Github, ArrowRight } from 'lucide-react';
 
 export default function Team() {
@@ -35,7 +34,7 @@ export default function Team() {
       scale: 1,
       transition: { 
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -53,7 +52,7 @@ export default function Team() {
       scale: 1,
       transition: { 
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 80
       }
     }
@@ -110,7 +109,7 @@ export default function Team() {
           transition={{
             duration: 18,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         
@@ -125,7 +124,7 @@ export default function Team() {
           transition={{
             duration: 16,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         <motion.div 
@@ -138,7 +137,7 @@ export default function Team() {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             delay: 3
           }}
         />
@@ -160,7 +159,7 @@ export default function Team() {
             transition={{
               duration: 10 + i * 0.5,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
               delay: i * 0.4
             }}
           />
@@ -184,7 +183,7 @@ export default function Team() {
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+              transition={{ duration: 0.8, type: "spring" as const, stiffness: 200 }}
             >
               EKIBIMIZ
             </motion.div>
@@ -271,7 +270,7 @@ export default function Team() {
                       transition={{
                         duration: 3,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut" as const
                       }}
                     />
                   </motion.div>

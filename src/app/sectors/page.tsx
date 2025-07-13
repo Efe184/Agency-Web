@@ -11,11 +11,8 @@ import {
   Home, 
   Smartphone,
   Briefcase,
-  Users,
   TrendingUp,
-  MapPin,
-  Star,
-  CheckCircle
+  Star
 } from 'lucide-react';
 
 export default function SectorsPage() {
@@ -37,7 +34,7 @@ export default function SectorsPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }

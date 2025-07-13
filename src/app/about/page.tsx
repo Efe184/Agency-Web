@@ -6,7 +6,6 @@ import {
   Users, 
   Award, 
   Globe, 
-  TrendingUp, 
   Heart,
   Eye,
   Zap,
@@ -14,7 +13,6 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { teamMembers } from '@/constants/team';
-import Image from 'next/image';
 
 export default function AboutPage() {
   const { scrollY } = useScroll();
@@ -38,7 +36,7 @@ export default function AboutPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -101,7 +99,7 @@ export default function AboutPage() {
               className="text-xl text-gray-400 max-w-4xl mx-auto mb-8"
             >
               Dijital dünyada markaları geleceğe taşıyan yaratıcı çözümlerin öncüsü. 
-              2008'den beri güçlü stratejiler ve yenilikçi yaklaşımlarla sektörde lider konumdayız.
+              2008&apos;den beri güçlü stratejiler ve yenilikçi yaklaşımlarla sektörde lider konumdayız.
             </motion.p>
           </motion.div>
         </div>
@@ -154,13 +152,13 @@ export default function AboutPage() {
                 className="text-gray-400 text-lg mb-6"
               >
                 2008 yılında dijital pazarlama alanında yenilikçi çözümler üretmek amacıyla kurulan OZANTARIK, 
-                bugün Türkiye'nin en güvenilir dijital ajanslarından biri haline geldi.
+                bugün Türkiye&apos;nin en güvenilir dijital ajanslarından biri haline geldi.
               </motion.p>
               <motion.p 
                 variants={itemVariants}
                 className="text-gray-400 text-lg mb-6"
               >
-                15 yılı aşkın tecrübemizle, 500'den fazla markaya dijital dönüşüm yolculuklarında rehberlik ettik. 
+                15 yılı aşkın tecrübemizle, 500&apos;den fazla markaya dijital dönüşüm yolculuklarında rehberlik ettik. 
                 Müşteri memnuniyetini ön planda tutan yaklaşımımızla, sadece hizmet sunmakla kalmıyor, 
                 uzun vadeli ortaklıklar kuruyoruz.
               </motion.p>
@@ -291,8 +289,8 @@ export default function AboutPage() {
                   <Users className="w-12 h-12 text-white/90" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{member.name}</h3>
-                <p className="text-indigo-400 mb-4">{member.role}</p>
-                <p className="text-gray-400 text-sm">{member.bio}</p>
+                <p className="text-indigo-400 mb-4">{member.position}</p>
+                {member.bio && <p className="text-gray-400 text-sm">{member.bio}</p>}
               </motion.div>
             ))}
           </div>
@@ -316,7 +314,7 @@ export default function AboutPage() {
               </div>
               <p className="text-gray-400 text-lg">
                 Dijital dünyada markaları zirvede tutmak ve sürekli büyüyen bir ekosistem yaratmak. 
-                Türkiye'nin en güvenilir dijital ajansı olarak, global standartlarda hizmet sunmak.
+                Türkiye&apos;nin en güvenilir dijital ajansı olarak, global standartlarda hizmet sunmak.
               </p>
             </motion.div>
 

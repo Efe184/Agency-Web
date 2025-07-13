@@ -21,6 +21,28 @@ export default function Hero() {
   const backgroundY = useTransform(scrollY, [0, 1000], [0, 300]);
   const titleY = useTransform(scrollY, [0, 800], [0, -200]);
   
+  // Precompute transform values for secondary shapes to avoid hooks in maps
+  const secondaryShapeTransforms = [
+    {
+      x: useTransform(springX, [-50, 50], [-120, -160]),
+      y: useTransform(springY, [-50, 50], [-80, -120])
+    },
+    {
+      x: useTransform(springX, [-50, 50], [120, 160]),
+      y: useTransform(springY, [-50, 50], [80, 120])
+    },
+    {
+      x: useTransform(springX, [-50, 50], [-120, -160]),
+      y: useTransform(springY, [-50, 50], [-80, -120])
+    }
+  ];
+  
+  // Precompute transform values for particles - use fixed values to avoid hooks in callbacks
+  const particleTransforms = Array.from({ length: 35 }, (_, i) => ({
+    x: (-1) ** i * (8 + i * 2),
+    y: (-1) ** i * (12 + i * 3)
+  }));
+  
   // Mouse tracking effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -54,7 +76,7 @@ export default function Hero() {
       scale: 1,
       transition: { 
         duration: 1.2,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -68,7 +90,7 @@ export default function Hero() {
       transition: { 
         duration: 0.8,
         delay: 0.4,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -82,7 +104,7 @@ export default function Hero() {
       transition: { 
         duration: 0.8,
         delay: 0.6,
-        type: "spring"
+        type: "spring" as const
       }
     }
   };
@@ -112,7 +134,7 @@ export default function Hero() {
             transition={{
               duration: 12,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut" as const
             }}
           />
           
@@ -135,7 +157,7 @@ export default function Hero() {
         >
           {/* Main morphing shape */}
           <motion.div
-            className="absolute top-1/2 left-1/2 w-80 h-80 opacity-25"
+            className="absolute top-1/2 left-1/2 w-80 h-80 opacity-25 border border-indigo-400/15 bg-gradient-to-br from-indigo-400/8 to-purple-400/8 backdrop-blur-sm"
             style={{
               x: useTransform(springX, [-50, 50], [-80, 80]),
               y: useTransform(springY, [-50, 50], [-80, 80])
@@ -154,19 +176,25 @@ export default function Hero() {
             transition={{
               duration: 20,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut" as const
             }}
-            className="border border-indigo-400/15 bg-gradient-to-br from-indigo-400/8 to-purple-400/8 backdrop-blur-sm"
           />
           
           {/* Secondary soft shapes */}
           {Array.from({ length: 3 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-24 h-24 opacity-20"
+              className={`absolute w-24 h-24 opacity-20 border border-white/8 bg-gradient-to-br ${
+                i === 0 ? 'from-blue-400/10 to-cyan-400/8' :
+                i === 1 ? 'from-purple-400/10 to-pink-400/8' :
+                'from-indigo-400/10 to-blue-400/8'
+              }`}
               style={{
-                x: useTransform(springX, [-50, 50], [(-1) ** i * 120, (-1) ** i * 160]),
-                y: useTransform(springY, [-50, 50], [(-1) ** i * 80, (-1) ** i * 120])
+                left: `${25 + i * 25}%`,
+                top: `${15 + i * 30}%`,
+                transform: 'translate(-50%, -50%)',
+                x: secondaryShapeTransforms[i]?.x,
+                y: secondaryShapeTransforms[i]?.y
               }}
               animate={{
                 borderRadius: [
@@ -182,18 +210,8 @@ export default function Hero() {
               transition={{
                 duration: 15 + i * 2,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: "easeInOut" as const,
                 delay: i * 3
-              }}
-              className={`border border-white/8 bg-gradient-to-br ${
-                i === 0 ? 'from-blue-400/10 to-cyan-400/8' :
-                i === 1 ? 'from-purple-400/10 to-pink-400/8' :
-                'from-indigo-400/10 to-blue-400/8'
-              }`}
-              style={{
-                left: `${25 + i * 25}%`,
-                top: `${15 + i * 30}%`,
-                transform: 'translate(-50%, -50%)'
               }}
             />
           ))}
@@ -208,8 +226,12 @@ export default function Hero() {
               style={{
                 width: i % 4 === 0 ? '3px' : i % 3 === 0 ? '2px' : '1.5px',
                 height: i % 4 === 0 ? '3px' : i % 3 === 0 ? '2px' : '1.5px',
-                x: useTransform(springX, [-50, 50], [(-1) ** i * 8, (-1) ** i * 18]),
-                y: useTransform(springY, [-50, 50], [(-1) ** i * 12, (-1) ** i * 20])
+                left: '50%',
+                top: '50%',
+                filter: `blur(${i % 5 === 0 ? '1px' : '0.5px'})`,
+                boxShadow: i % 3 === 0 ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none',
+                x: particleTransforms[i]?.x,
+                y: particleTransforms[i]?.y
               }}
               animate={{
                 x: [
@@ -228,14 +250,8 @@ export default function Hero() {
               transition={{
                 duration: 10 + i * 0.3,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: "easeInOut" as const,
                 delay: i * 0.15
-              }}
-              style={{
-                left: '50%',
-                top: '50%',
-                filter: `blur(${i % 5 === 0 ? '1px' : '0.5px'})`,
-                boxShadow: i % 3 === 0 ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none'
               }}
             />
           ))}
@@ -263,7 +279,7 @@ export default function Hero() {
                 transition={{
                   duration: 8 + i * 2,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "easeInOut" as const,
                   delay: i * 0.8
                 }}
               />
@@ -305,7 +321,7 @@ export default function Hero() {
               transition={{
                 duration: 12 + i * 1.5,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: "easeInOut" as const,
                 delay: i * 0.5
               }}
             />
@@ -346,120 +362,103 @@ export default function Hero() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
       </div>
 
-      {/* CONTENT AREA */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
-        <div className="min-h-screen flex flex-col justify-center items-center text-center">
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="max-w-6xl mx-auto"
+            variants={containerVariants}
           >
-            {/* Main Title */}
-            <motion.h1 
+            <motion.h1
               variants={titleVariants}
               style={{ y: titleY }}
-              className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-8 tracking-wide bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent"
+              className="text-6xl md:text-8xl lg:text-9xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight mb-8"
             >
-              Satışı artır, kârlılığı yükselt,<br />
-              <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-blue-300 bg-clip-text text-transparent">
-                markanı güçlendir.
-              </span>
+              OZANTARIK
             </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
+            
+            <motion.p
               variants={subtitleVariants}
-              className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-16 max-w-4xl mx-auto font-light leading-relaxed"
+              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed"
             >
-              Modern dijital pazarlama stratejileriyle işinizi büyütün. 
-              <br className="hidden md:block" />
-              Veri odaklı çözümlerle hedeflerinize ulaşın.
+              Dijital dünyada markaları geleceğe taşıyan yaratıcı çözümlerin öncüsü. 
+              Güçlü stratejiler ve yenilikçi yaklaşımlarla sektörde lider konumdayız.
             </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               variants={buttonVariants}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
+              className="flex flex-col sm:flex-row items-center justify-center gap-6"
             >
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                href="/contact"
+                className="group bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 hover:scale-105 flex items-center"
               >
-                <Link 
-                  href="/contact"
-                  className="group bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-10 py-4 rounded-full font-semibold hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 flex items-center gap-3 min-w-[250px] justify-center shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-indigo-500/30"
-                >
-                  Ücretsiz Görüşme
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
+                Hemen Başlayalım
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
               
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                href="/about"
+                className="group bg-transparent border-2 border-indigo-500 text-indigo-400 px-8 py-4 rounded-full font-semibold text-lg hover:bg-indigo-500 hover:text-white transition-all duration-300 flex items-center"
               >
-                <Link 
-                  href="/services"
-                  className="group border-2 border-white/20 text-white px-10 py-4 rounded-full font-semibold hover:bg-white/5 hover:border-white/30 transition-all duration-300 min-w-[250px] justify-center flex items-center backdrop-blur-sm"
-                >
-                  Hizmetlerimizi İncele
-                </Link>
-              </motion.div>
+                Hakkımızda
+              </Link>
             </motion.div>
 
             {/* Stats */}
-            <motion.div 
-              variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto"
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
             >
               {[
-                { icon: Users, number: "500+", text: "Mutlu Müşteri" },
-                { icon: Globe, number: "50+", text: "Başarılı Proje" },
-                { icon: Award, number: "5+", text: "Yıl Deneyim" }
-              ].map((stat, i) => (
-                <motion.div 
-                  key={i}
-                  variants={buttonVariants}
-                  whileHover={{ y: -10, scale: 1.05 }}
-                  className="text-center group"
+                { number: '500+', label: 'Mutlu Müşteri', icon: Users },
+                { number: '1000+', label: 'Proje', icon: Award },
+                { number: '15+', label: 'Yıl Tecrübe', icon: Globe },
+                { number: '99%', label: 'Başarı Oranı', icon: Award }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 + index * 0.1 }}
+                  className="text-center"
                 >
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="p-4 rounded-full bg-gradient-to-br from-white/10 to-white/5 group-hover:from-white/15 group-hover:to-white/8 transition-all duration-300 backdrop-blur-sm">
-                      <stat.icon className="w-8 h-8 text-white group-hover:text-indigo-300 transition-colors" />
-                    </div>
+                  <div className="flex justify-center mb-3">
+                    <stat.icon className="w-8 h-8 text-indigo-400" />
                   </div>
-                  <span className="text-4xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent block mb-2">
-                    {stat.number}
-                  </span>
-                  <p className="text-gray-400 text-lg font-medium">{stat.text}</p>
+                  <div className="text-3xl font-bold text-white mb-1">{stat.number}</div>
+                  <div className="text-gray-400">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div 
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            animate={{ y: [0, 15, 0] }}
-            transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-gray-400 text-sm font-medium tracking-wider uppercase">Scroll</span>
-              <ChevronDown className="w-6 h-6 text-gray-400" />
-            </div>
-          </motion.div>
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="flex flex-col items-center text-gray-400"
+        >
+          <span className="text-sm mb-2">Aşağı Kaydır</span>
+          <ChevronDown className="w-6 h-6" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 } 
