@@ -6,12 +6,7 @@ import {
   Phone, 
   MapPin, 
   Clock, 
-  MessageCircle, 
-  Send,
-  CheckCircle,
-  Users,
-  Award,
-  Globe
+  CheckCircle
 } from 'lucide-react';
 import ContactForm from '@/features/contact/ContactForm';
 
@@ -34,7 +29,7 @@ export default function ContactPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -312,7 +307,7 @@ export default function ContactPage() {
               variants={itemVariants}
               className="text-xl text-gray-400"
             >
-              İstanbul Maslak'taki ofisimizde sizi ağırlamaktan memnuniyet duyarız
+              İstanbul Maslak&apos;taki ofisimizde sizi ağırlamaktan memnuniyet duyarız
             </motion.p>
           </motion.div>
 

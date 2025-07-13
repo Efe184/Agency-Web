@@ -11,7 +11,6 @@ import {
   Users,
   ArrowRight,
   CheckCircle,
-  Star,
   LucideIcon
 } from 'lucide-react';
 import { services } from '@/constants/services';
@@ -46,7 +45,7 @@ export default function ServicesPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -135,7 +134,7 @@ export default function ServicesPage() {
             variants={containerVariants}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {services.map((service, index) => {
+            {services.map((service) => {
               const Icon = iconMap[service.icon];
               return (
                 <motion.div

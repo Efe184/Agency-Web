@@ -12,7 +12,6 @@ export default function Navbar() {
   
   // Smooth scroll-based opacity for premium effect
   const navbarOpacity = useTransform(scrollY, [0, 100], [0.8, 0.95]);
-  const navbarBlur = useTransform(scrollY, [0, 100], [8, 20]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +50,7 @@ export default function Navbar() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+            transition={{ duration: 0.8, type: "spring" as const, stiffness: 100 }}
             className="flex-shrink-0"
           >
             <Link href="/" className="group flex items-center space-x-2">
@@ -144,7 +143,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+            transition={{ duration: 0.3, type: "spring" as const, stiffness: 300 }}
             className="md:hidden bg-gradient-to-br from-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-2xl m-4 p-4 border border-white/10 shadow-xl shadow-indigo-500/10"
           >
             <div className="space-y-2">

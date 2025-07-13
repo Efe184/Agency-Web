@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Linkedin, Instagram, ArrowUpRight, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { Linkedin, Instagram, ArrowUpRight, Mail, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Footer() {
@@ -60,7 +60,7 @@ export default function Footer() {
       y: 0,
       transition: { 
         duration: 0.6,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -86,7 +86,7 @@ export default function Footer() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         
@@ -107,7 +107,7 @@ export default function Footer() {
             transition={{
               duration: 20 + i * 2,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
               delay: i * 1.5
             }}
           />

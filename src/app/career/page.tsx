@@ -9,12 +9,10 @@ import {
   Heart, 
   Award, 
   Coffee, 
-  Zap,
+  TrendingUp,
   ArrowRight,
   CheckCircle,
   Globe,
-  TrendingUp,
-  Star,
   Target,
   Lightbulb,
   BookOpen
@@ -39,7 +37,7 @@ export default function CareerPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }

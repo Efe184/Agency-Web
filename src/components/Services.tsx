@@ -57,35 +57,10 @@ export default function Services() {
       scale: 1,
       transition: { 
         duration: 1,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
-  };
-
-  const cardVariants = {
-    hidden: (index: number) => ({
-      opacity: 0,
-      x: index % 2 === 0 ? -120 : 120, // Sol ve sağdan alternating
-      y: 60,
-      scale: 0.8,
-      rotateY: index % 2 === 0 ? -15 : 15, // 3D modal efekti
-    }),
-    visible: (index: number) => ({
-      opacity: 1,
-      x: 0,
-      y: 0,
-      scale: 1,
-      rotateY: 0,
-      transition: {
-        duration: 0.8,
-        delay: index * 0.15, // Her kart için farklı delay
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        ease: [0.25, 0.46, 0.45, 0.94] // Cubic-bezier for smooth modal feel
-      }
-    })
   };
 
   return (
@@ -109,7 +84,7 @@ export default function Services() {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         
@@ -124,7 +99,7 @@ export default function Services() {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         <motion.div 
@@ -137,7 +112,7 @@ export default function Services() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             delay: 5
           }}
         />
@@ -159,7 +134,7 @@ export default function Services() {
             transition={{
               duration: 8 + i * 0.5,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
               delay: i * 0.3
             }}
           />
@@ -183,7 +158,7 @@ export default function Services() {
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+              transition={{ duration: 0.8, type: "spring" as const, stiffness: 200 }}
             >
               HİZMETLERİMİZ
             </motion.div>
@@ -241,7 +216,7 @@ export default function Services() {
                 transition={{
                   duration: 4,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut" as const
                 }}
               />
               <motion.line
@@ -256,7 +231,7 @@ export default function Services() {
                 transition={{
                   duration: 5,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "easeInOut" as const,
                   delay: 1
                 }}
               />
@@ -272,7 +247,7 @@ export default function Services() {
                 transition={{
                   duration: 6,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "easeInOut" as const,
                   delay: 2
                 }}
               />
@@ -331,19 +306,19 @@ export default function Services() {
                   transition={{ 
                     duration: 1.2,
                     delay: index * 0.2,
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 100
                   }}
                   animate={{
                     y: [0, -20, 0],
                     rotate: [0, 5, 0, -5, 0],
-                    scale: [1, 1.02, 1]
-                  }}
-                  transition={{
-                    duration: 6 + index,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: index * 0.5
+                    scale: [1, 1.02, 1],
+                    transition: {
+                      duration: 6 + index,
+                      repeat: Infinity,
+                      ease: "easeInOut" as const,
+                      delay: index * 0.5
+                    }
                   }}
                   whileHover={{
                     scale: 1.15,
@@ -351,7 +326,7 @@ export default function Services() {
                     z: 50,
                     transition: {
                       duration: 0.3,
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 10
                     }
@@ -396,7 +371,7 @@ export default function Services() {
                       transition={{
                         duration: 3,
                         repeat: Infinity,
-                        ease: "easeInOut",
+                        ease: "easeInOut" as const,
                         delay: index * 0.3
                       }}
                     />
@@ -431,7 +406,7 @@ export default function Services() {
                         transition={{
                           duration: 4 + i,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: "easeInOut" as const,
                           delay: i * 0.5 + index * 0.2
                         }}
                       />

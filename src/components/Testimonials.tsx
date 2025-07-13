@@ -1,13 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Quote, Star, ArrowRight, User } from 'lucide-react';
 import { testimonials, testimonialsSection } from '@/constants/testimonials';
 
 export default function Testimonials() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { scrollY } = useScroll();
   
   // Parallax effects
@@ -38,7 +37,7 @@ export default function Testimonials() {
       scale: 1,
       transition: { 
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -56,7 +55,7 @@ export default function Testimonials() {
       scale: 1,
       transition: { 
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 80
       }
     }
@@ -83,7 +82,7 @@ export default function Testimonials() {
           transition={{
             duration: 16,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         
@@ -98,7 +97,7 @@ export default function Testimonials() {
           transition={{
             duration: 18,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut" as const
           }}
         />
         <motion.div 
@@ -111,7 +110,7 @@ export default function Testimonials() {
           transition={{
             duration: 22,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             delay: 4
           }}
         />
@@ -133,7 +132,7 @@ export default function Testimonials() {
             transition={{
               duration: 12 + i * 0.8,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
               delay: i * 0.6
             }}
           />
@@ -152,12 +151,12 @@ export default function Testimonials() {
             variants={titleVariants}
             className="text-center mb-20"
           >
-            <motion.div 
+                        <motion.div
               className="text-blue-400 font-semibold text-lg mb-4 uppercase tracking-wider"
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
+              transition={{ duration: 0.8, type: "spring" as const, stiffness: 200 }}
             >
               MÜŞTERİ DENEYİMLERİ
             </motion.div>
@@ -185,7 +184,7 @@ export default function Testimonials() {
 
           {/* Premium Testimonials Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-20">
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <motion.div
                 key={testimonial.id}
                 variants={cardVariants}
@@ -213,7 +212,7 @@ export default function Testimonials() {
 
                   {/* Premium Content */}
                   <blockquote className="text-gray-300 leading-relaxed mb-8 text-lg font-light group-hover:text-gray-200 transition-colors duration-300">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </blockquote>
 
                   {/* Premium Rating */}

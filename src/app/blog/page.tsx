@@ -6,14 +6,9 @@ import {
   User, 
   Clock, 
   ArrowRight, 
-  TrendingUp, 
   BookOpen, 
-  Tag,
   Eye,
-  Heart,
-  Share2,
-  Search,
-  Filter
+  Search
 } from 'lucide-react';
 
 export default function BlogPage() {
@@ -35,7 +30,7 @@ export default function BlogPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }

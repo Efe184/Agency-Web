@@ -5,15 +5,10 @@ import {
   Star, 
   Quote, 
   TrendingUp, 
-  Users, 
-  Award, 
   ArrowRight,
-  Globe,
   Building,
-  CheckCircle,
-  Eye,
-  Heart,
-  Zap
+  CheckCircle, 
+  Heart
 } from 'lucide-react';
 
 export default function ReferencesPage() {
@@ -35,7 +30,7 @@ export default function ReferencesPage() {
       y: 0,
       transition: {
         duration: 0.8,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -276,7 +271,7 @@ export default function ReferencesPage() {
                 <div className="relative mb-6">
                   <Quote className="w-8 h-8 text-indigo-400/30 absolute -top-2 -left-2" />
                   <p className="text-gray-300 leading-relaxed pl-6">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </p>
                 </div>
 
